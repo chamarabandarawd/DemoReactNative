@@ -1,16 +1,18 @@
-import { useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 
 export default function AddPost() {
 
-    useEffect(()=>{
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
         loadData();
     });
-    
+
     const loadData = () => {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then((response) => response.json())
-            .then((json) => console.log(json));
+            .then((json) => setData(json));
     }
 
 
@@ -20,7 +22,15 @@ export default function AddPost() {
                 <Text style={styles.headerText}>Load All Post</Text>
             </View>
             <View style={styles.content}>
-
+                <FlatList
+                    data={data}
+                    renderItem={({ item }) =>
+                        <View>
+                            <Text style={styles.headerText} >{item.title}</Text>
+                            <Text>{item.body}</Text>
+                        </View>}
+                    keyExtractor={item => item.id}
+                />
             </View>
             <View style={styles.footer}>
                 <Text>Copyright @ iCet 2023</Text>
