@@ -1,6 +1,17 @@
+import { useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
 
 export default function AddPost() {
+
+    useEffect(()=>{
+        loadData();
+    });
+    
+    const loadData = () => {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+    }
 
 
     return (
@@ -28,10 +39,10 @@ const styles = StyleSheet.create({
         flex: 1,
         borderWidth: 1,
         borderColor: 'black',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    headerText:{
+    headerText: {
         color: 'red',
         fontSize: 30,
     },
@@ -46,8 +57,8 @@ const styles = StyleSheet.create({
         flex: 2,
         borderWidth: 1,
         borderColor: 'black',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
 
     },
 
